@@ -22,10 +22,11 @@ private:
 class Button{
 public:
     Button();
-    Button(string text);
+    Button(Vector2f pos);
     Button(Vector2f pos, string text);
     void draw(RenderWindow& window);
 
+    void initButton();
     void update();
     bool clicked(RenderWindow& window);
     bool isInside(Vector2f pos);

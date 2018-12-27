@@ -80,20 +80,27 @@ void Panel::draw(RenderWindow& window){
 
 
 ////// BUTTON //////
-Button::Button(){
+Button::Button(Vector2f pos){
+    _state = 'n'; // n normal, h hover, c click
+    _pos = pos;
 
+    _texture[0].loadFromFile("res/texture/cookie1.png");
+    _texture[1].loadFromFile("res/texture/cookie2.png");
+    _texture[2].loadFromFile("res/texture/cookie3.png");
+
+    _sprite.setTexture(_texture[0]);
+    _sprite.setPosition({_pos.x, _pos.y});
+
+    initButton();
 }
 
-Button::Button(string text){
-    _text.setString(text);
-}
 
 Button::Button(Vector2f pos, string text){
     // standart settings
-    _text.setCharacterSize(24);
-    _text.setOrigin({0, float(_text.getCharacterSize()/1.5)});
     _state = 'n'; // n normal, h hover, c click
     _pos = pos;
+    _text.setCharacterSize(24);
+    _text.setOrigin({0, float(_text.getCharacterSize()/1.5)});
 
     // button settings
     _texture[0].loadFromFile("res/texture/button.png");
@@ -123,15 +130,21 @@ Button::Button(Vector2f pos, string text){
     _text.setOutlineColor(Color(115, 205, 75));
     _text.setOutlineThickness(2);
 
-    // other
-    _size.x = _texture[0].getSize().x;
-    _size.y = _texture[0].getSize().y;
+    initButton();
 }
 
 void Button::draw(RenderWindow& window){
     window.draw(_sprite);
     window.draw(_spriteIcon);
     window.draw(_text);
+}
+
+void Button::initButton(){
+
+
+    _size.x = _texture[0].getSize().x;
+    _size.y = _texture[0].getSize().y;
+
 }
 
 void Button::update(){

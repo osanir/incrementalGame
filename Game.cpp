@@ -2,8 +2,8 @@
 
 Game::Game() 
 : window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT) , "Incremental Game", Style::Default) 
-, panel({1, 1}, {18, 16})
-, cookie({400, 200}, "COOKIE")
+, panel({1, 1}, {18, 18})
+, cookie({300, 300})
 {
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
@@ -13,7 +13,7 @@ Game::Game()
 void Game::run(){
     boosterList.createBoosters();
     
-    float y = 64;
+    float y = 128;
     for(auto booster : boosterList.getBoosters()){
         Button *newButton = new Button({64,y}, booster.getName());
         buttons.push_back(*newButton);
