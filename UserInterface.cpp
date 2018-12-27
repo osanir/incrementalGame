@@ -80,15 +80,20 @@ void Panel::draw(RenderWindow& window){
 
 
 ////// BUTTON //////
+Button::Button(){
+
+}
+
+Button::Button(string text){
+    _text.setString(text);
+}
 
 Button::Button(Vector2f pos, string text){
     // standart settings
     _text.setCharacterSize(24);
     _text.setOrigin({0, float(_text.getCharacterSize()/1.5)});
     _state = 'n'; // n normal, h hover, c click
-    _pos.x = pos.x;
-    _pos.y = pos.y;
-
+    _pos = pos;
 
     // button settings
     _texture[0].loadFromFile("res/texture/button.png");
@@ -106,6 +111,7 @@ Button::Button(Vector2f pos, string text){
     _spriteIcon.setTexture(_textureIcon);
     _spriteIcon.setOrigin({_textureIcon.getSize().x/2.f, _textureIcon.getSize().y/2.f});
     _spriteIcon.setPosition({_sprite.getPosition().x + _imagePoints[0].x, _sprite.getPosition().y + _imagePoints[0].y});
+    _spriteIcon.setColor(Color(115, 205, 75));
 
 
     // text settings
@@ -113,6 +119,9 @@ Button::Button(Vector2f pos, string text){
     _text.setFont(_font);
     _text.setString(text);
     _text.setPosition({_sprite.getPosition().x + _imagePoints[1].x, _sprite.getPosition().y + _imagePoints[1].y});
+    _text.setFillColor(Color::White);
+    _text.setOutlineColor(Color(115, 205, 75));
+    _text.setOutlineThickness(2);
 
     // other
     _size.x = _texture[0].getSize().x;
@@ -129,18 +138,14 @@ void Button::update(){
     switch( _state ){
         case 'n':
             _sprite.setTexture(_texture[0]);
-            _spriteIcon.setColor(Color::Black);
-            _text.setFillColor(Color::Black);
+            _spriteIcon.setColor(Color(115, 205, 75));
             break;
         case 'h':
             _sprite.setTexture(_texture[1]);
             _spriteIcon.setColor(Color::White);
-            _text.setFillColor(Color::White);
             break;
         case 'c':
             _sprite.setTexture(_texture[2]);
-            _spriteIcon.setColor(Color::White);
-            _text.setFillColor(Color::White);
             break;
     }
 }
@@ -175,6 +180,10 @@ bool Button::isInside(Vector2i pos){
     return false;
 }
 
+void Button::setString(string text){
+    _text.setString(text);
+}
+
 Vector2f Button::getSize(){
     return _size;
 }
@@ -187,3 +196,42 @@ string Button::getText(){
     return _text.getString();
 }
 
+
+////// LABEL //////
+
+Label::Label(Vector2f pos, string text){
+    _pos = pos;
+    _text.setString(text);
+    _text.setCharacterSize(20);
+    _text.setFillColor(Color::White);
+    _text.setOutlineThickness(2);
+    _text.setOutlineColor(Color::Black);
+}
+
+void Label::draw(RenderWindow& window){
+    window.draw(_text);
+}
+
+void Label::setPosition(Vector2f pos){
+    _text.setPosition(pos);         
+}
+
+void Label::setString(string text){
+    _text.setString(text);
+}
+
+void Label::setCharacterSize(int size){
+    _text.setCharacterSize(size);
+}
+
+void Label::setFillColor(Color color){ 
+    _text.setFillColor(color);
+}
+
+void Label::setOutlineColor(Color color){ 
+    _text.setOutlineColor(color);
+}
+
+Vector2f Label::getPosition(){
+    return _text.getPosition();
+}

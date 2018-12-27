@@ -6,6 +6,7 @@
 using namespace std;
 using namespace sf;
 
+
 class Panel{
 public:
     Panel(Vector2f pos, Vector2f size);
@@ -20,6 +21,8 @@ private:
 
 class Button{
 public:
+    Button();
+    Button(string text);
     Button(Vector2f pos, string text);
     void draw(RenderWindow& window);
 
@@ -27,6 +30,10 @@ public:
     bool clicked(RenderWindow& window);
     bool isInside(Vector2f pos);
     bool isInside(Vector2i pos);
+    
+    // Setters
+    void setString(string text);
+    void setPosition(Vector2f pos);
     
     // Getters
     Vector2f getSize();
@@ -51,8 +58,25 @@ private:
 
 class Label{
 public:
-    Label(float x, float y, string text);
+    Label(Vector2f pos, string text);
+    void draw(RenderWindow& window);
 
+    // Setters
+    void setPosition(Vector2f pos);
+    void setString(string text);
+    void setCharacterSize(int size);
+    void setFillColor(Color color);
+    void setOutlineColor(Color color);
+
+    // Getters
+    Vector2f getPosition();
+private:
+    Vector2f _pos;
+    Text _text;
+};
+
+class Menu{
+public:
 private:
 
 };

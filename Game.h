@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include <vector>
+
 #include "Booster.h"
 #include "UserInterface.h"
 
@@ -22,9 +24,10 @@ private:
     RenderWindow window;
 
     BoosterList boosterList;
+    vector<Button> buttons;
+    Button cookie;
+
     Clock clock;
-
     Panel panel;
-    Button button;
-
+    
 };

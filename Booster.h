@@ -28,9 +28,12 @@ public:
     BoosterList();
     bool addBooster(int pick);
     void harvestAll();
+    void addCookie();
 
     void createBoosters();
     void printBoosters();
+
+    vector<Booster> getBoosters();
 private:
     double _totalEarnings;
     vector<string> _boosterNames;

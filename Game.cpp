@@ -2,15 +2,23 @@
 
 Game::Game() 
 : window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT) , "Incremental Game", Style::Default) 
-, panel({3, 3}, {10, 10})
-, button({300, 300}, "COOKIE")
+, panel({1, 1}, {18, 16})
+, cookie({400, 200}, "COOKIE")
 {
     window.setFramerateLimit(60);
+    window.setVerticalSyncEnabled(true);
     clock.restart();
 }
 
 void Game::run(){
     boosterList.createBoosters();
+    
+    float y = 64;
+    for(auto booster : boosterList.getBoosters()){
+        Button *newButton = new Button({64,y}, booster.getName());
+        buttons.push_back(*newButton);
+        y += 64;
+    }
 
     while(window.isOpen() ){
         processEvents();
@@ -26,15 +34,20 @@ void Game::processEvents(){
             case Event::Closed:
                 window.close();
                 break;
-            case Event::MouseButtonPressed:
-                
-                break;
             default:
                 break;
         }
-        if( button.clicked(window) ){
-            cout << "Clicked to: " << button.getText() << endl;
+
+        for( int i=0; i<buttons.size(); i++){
+            if( buttons[i].clicked(window) ){
+                if( boosterList.addBooster(i) == false ){
+                    cout << "Not enough money" << endl;
+                }
+            }
         }
+
+        if( cookie.clicked(window) )
+            boosterList.addCookie();
 
     }
 }
@@ -43,18 +56,22 @@ void Game::update(){
 
     // EVERY SECONDS
     if( clock.getElapsedTime().asMilliseconds() > 1000 ){
-        boosterList.addBooster(0);
         boosterList.harvestAll();
         clock.restart();
     }
-    //boosterList.printBoosters();
-    button.update();
+    for( int i=0; i<buttons.size(); i++)
+        buttons[i].update();
+    cookie.update();
 
 }
 
 void Game::render(){
-    window.clear(Color::Magenta);
+    boosterList.printBoosters();
+
+    window.clear(Color::Black);
     panel.draw(window);
-    button.draw(window);
+    for( auto button : buttons)
+        button.draw(window);
+    cookie.draw(window);
     window.display();
 }
