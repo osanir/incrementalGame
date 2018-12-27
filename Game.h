@@ -24,6 +24,7 @@ private:
     BoosterList boosterList;
     Clock clock;
 
-    MenuArea menuArea;
+    Panel panel;
+    Button button;
 
 };

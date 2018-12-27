@@ -2,7 +2,8 @@
 
 Game::Game() 
 : window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT) , "Incremental Game", Style::Default) 
-, menuArea(3, 3, 10, 10)
+, panel(3, 3, 10, 10)
+, button(300, 300, "COOKIE")
 {
     window.setFramerateLimit(60);
     clock.restart();
@@ -31,6 +32,10 @@ void Game::processEvents(){
             default:
                 break;
         }
+        if( button.clicked(window) ){
+            cout << "Clicked to: " << button.getText() << endl;
+        }
+
     }
 }
 
@@ -43,10 +48,13 @@ void Game::update(){
         clock.restart();
     }
     //boosterList.printBoosters();
+    button.update();
+
 }
 
 void Game::render(){
     window.clear(Color::Magenta);
-    menuArea.draw(window);
+    panel.draw(window);
+    button.draw(window);
     window.display();
 }

@@ -39,7 +39,7 @@ int Booster::getPiece(){
 ////// BOOSTER LIST //////
 
 BoosterList::BoosterList()
-:_boosterNames({"Cursor", "Grandma", "Farm", "Mine", "Factory"})
+:_boosterNames({"Cursor", "Grandma", "Farm", "Mine", "Factory", "Bank", "Temple", "Wizard Tower"})
 {
     _totalEarnings = 0;
 }
