@@ -39,7 +39,7 @@ int Booster::getPiece(){
 ////// BOOSTER LIST //////
 
 BoosterList::BoosterList()
-:_boosterNames({"a", "b", "c", "d", "e"})
+:_boosterNames({"Cursor", "Grandma", "Farm", "Mine", "Factory"})
 {
     _totalEarnings = 0;
 }
@@ -68,10 +68,14 @@ void BoosterList::createBoosters(){
 }
 
 void BoosterList::printBoosters(){
-    cout << "Name     Piece    Price    Rate" << endl;
+    cout << "      Name     Piece      Rate     Price     Per second" << endl;
     for(auto booster : _boosters){
-        cout << booster.getName() << " " << booster.getPiece() << " "
-            << booster.getPrice() << " " << booster.getRate() << endl;
+        printf("%10s", booster.getName().c_str());
+        printf("%10d", booster.getPiece());
+        printf("%10.0lf", booster.getRate());
+        printf("%10.0lf", booster.getPrice());
+        printf("%15.0lf", booster.getPiece()*booster.getRate());
+        cout << endl;
     }
 
     cout << "Total Earnings : " << _totalEarnings << endl << endl;

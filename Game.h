@@ -2,6 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include "Booster.h"
+#include "UserInterface.h"
 
 using namespace sf;
 using namespace std;
@@ -22,5 +23,7 @@ private:
 
     BoosterList boosterList;
     Clock clock;
+
+    MenuArea menuArea;
 
 };

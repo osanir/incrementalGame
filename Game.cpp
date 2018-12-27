@@ -1,13 +1,15 @@
 #include "Game.h"
 
-Game::Game() : window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT) , "Incremental Game", Style::Default) {
+Game::Game() 
+: window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT) , "Incremental Game", Style::Default) 
+, menuArea(3, 3, 10, 10)
+{
     window.setFramerateLimit(60);
     clock.restart();
 }
 
 void Game::run(){
     boosterList.createBoosters();
-    boosterList.printBoosters();
 
     while(window.isOpen() ){
         processEvents();
@@ -40,11 +42,11 @@ void Game::update(){
         boosterList.harvestAll();
         clock.restart();
     }
-    boosterList.printBoosters();
+    //boosterList.printBoosters();
 }
 
 void Game::render(){
-    window.clear(Color::Black);
-    //window.draw();
+    window.clear(Color::Magenta);
+    menuArea.draw(window);
     window.display();
 }
