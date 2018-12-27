@@ -1,10 +1,10 @@
 #include "UserInterface.h"
 
-Panel::Panel(float x, float y, float width, float height){
-    _x      = x * tileSize;
-    _y      = y * tileSize;
-    _width  = width * tileSize;
-    _height = height * tileSize;
+Panel::Panel(Vector2f pos, Vector2f size){
+    _pos.x      = pos.x * tileSize;
+    _pos.y      = pos.y * tileSize;
+    _size.x  = size.x * tileSize;
+    _size.y = size.y * tileSize;
     
     if( !_texture.loadFromFile("res/texture/grey_panel.png") ){
         // error handle
@@ -27,20 +27,20 @@ Panel::Panel(float x, float y, float width, float height){
 
 
     // corner settings
-    _sprites[0].setPosition({_x, _y});
-    _sprites[2].setPosition({_x + _width, _y});
-    _sprites[6].setPosition({_x, _y + _height});
-    _sprites[8].setPosition({_x + _width, _y + _height});
+    _sprites[0].setPosition({_pos.x, _pos.y});
+    _sprites[2].setPosition({_pos.x + _size.x, _pos.y});
+    _sprites[6].setPosition({_pos.x, _pos.y + _size.y});
+    _sprites[8].setPosition({_pos.x + _size.x, _pos.y + _size.y});
 }
 
 void Panel::draw(RenderWindow& window){
-    for( int j = _y; j <= _y + _height; j += tileSize){
-        for( int i = _x; i <= _x + _width; i+= tileSize){
-            if( j == _y ){                     // TOP
-                if( i == _x ){                      // left
+    for( int j = _pos.y; j <= _pos.y + _size.y; j += tileSize){
+        for( int i = _pos.x; i <= _pos.x + _size.x; i+= tileSize){
+            if( j == _pos.y ){                     // TOP
+                if( i == _pos.x ){                      // left
                     window.draw(_sprites[0]);
                 }                          
-                else if( i == _x + _width ){        // right
+                else if( i == _pos.x + _size.x ){        // right
                     window.draw(_sprites[2]);
                 }
                 else{                               // mid
@@ -48,11 +48,11 @@ void Panel::draw(RenderWindow& window){
                     window.draw(_sprites[1]);
                 }
             }
-            else if( j == _y + _width ){      // BOTTOM
-                if( i == _x ){                      // left
+            else if( j == _pos.y + _size.x ){      // BOTTOM
+                if( i == _pos.x ){                      // left
                     window.draw(_sprites[6]);
                 }
-                else if( i == _x + _width ){        // right
+                else if( i == _pos.x + _size.x ){        // right
                     window.draw(_sprites[8]);
                 }
                 else {
@@ -61,11 +61,11 @@ void Panel::draw(RenderWindow& window){
                 }
             } 
             else{                           // CENTER
-                if( i == _x ){                      // left
+                if( i == _pos.x ){                      // left
                     _sprites[3].setPosition({float(i),float(j)});
                     window.draw(_sprites[3]);
                 }                          
-                else if( i == _x + _width ){        // right
+                else if( i == _pos.x + _size.x ){        // right
                     _sprites[5].setPosition({float(i),float(j)});
                     window.draw(_sprites[5]);
                 }    
@@ -81,13 +81,13 @@ void Panel::draw(RenderWindow& window){
 
 ////// BUTTON //////
 
-Button::Button(float x, float y, string text){
+Button::Button(Vector2f pos, string text){
     // standart settings
     _text.setCharacterSize(24);
     _text.setOrigin({0, float(_text.getCharacterSize()/1.5)});
     _state = 'n'; // n normal, h hover, c click
-    _pos.x = x;
-    _pos.y = y;
+    _pos.x = pos.x;
+    _pos.y = pos.y;
 
 
     // button settings
@@ -96,7 +96,7 @@ Button::Button(float x, float y, string text){
     _texture[2].loadFromFile("res/texture/button_click.png");
 
     _sprite.setTexture(_texture[0]);
-    _sprite.setPosition({x, y});
+    _sprite.setPosition({_pos.x, _pos.y});
 
     _imagePoints[0] = {_texture[0].getSize().x/8.f, _texture[0].getSize().y/2.f};  // icon point
     _imagePoints[1] = {_texture[0].getSize().x/8.f + 20, _texture[0].getSize().y/2.f};  // text point
@@ -186,3 +186,4 @@ Vector2f Button::getPosition(){
 string Button::getText(){
     return _text.getString();
 }
+

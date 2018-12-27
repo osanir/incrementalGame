@@ -2,8 +2,8 @@
 
 Game::Game() 
 : window(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT) , "Incremental Game", Style::Default) 
-, panel(3, 3, 10, 10)
-, button(300, 300, "COOKIE")
+, panel({3, 3}, {10, 10})
+, button({300, 300}, "COOKIE")
 {
     window.setFramerateLimit(60);
     clock.restart();

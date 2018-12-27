@@ -8,10 +8,11 @@ using namespace sf;
 
 class Panel{
 public:
-    Panel(float x, float y, float width, float height);
+    Panel(Vector2f pos, Vector2f size);
     void draw(RenderWindow& window);
 private:
-    float _x, _y, _width, _height;
+    Vector2f _pos;
+    Vector2f _size;
     const int tileSize = 32;
     Texture _texture;
     Sprite _sprites[9];
@@ -19,7 +20,7 @@ private:
 
 class Button{
 public:
-    Button(float x, float y, string text);
+    Button(Vector2f pos, string text);
     void draw(RenderWindow& window);
 
     void update();
@@ -45,5 +46,13 @@ private:
 
     Text _text;
     Font _font;
+
+};
+
+class Label{
+public:
+    Label(float x, float y, string text);
+
+private:
 
 };
